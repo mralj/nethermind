@@ -6,7 +6,6 @@ using Microsoft.Extensions.ObjectPool;
 using Nethermind.Blockchain.Find;
 using Nethermind.Core;
 using Nethermind.Core.Crypto;
-using Nethermind.Core.Extensions;
 using Nethermind.Core.Specs;
 using Nethermind.Int256;
 using Nethermind.State;
@@ -57,7 +56,7 @@ public class RbuilderRpcModule(IBlockFinder blockFinder, ISpecProvider specProvi
 
                 // IWorldState does not actually have set nonce or set balance.
                 // Set, its either this or changing `IWorldState` which is somewhat risky.
-                if (accountChange.Nonce.IsPositive())
+                if (accountChange.Nonce is not null)
                 {
                     UInt256 originalNonce = worldState.GetNonce(address);
                     if (accountChange.Nonce.Value != originalNonce)
@@ -73,7 +72,7 @@ public class RbuilderRpcModule(IBlockFinder blockFinder, ISpecProvider specProvi
                     }
                 }
 
-                if (accountChange.Balance.IsPositive())
+                if (accountChange.Balance is not null)
                 {
                     UInt256 originalBalance = worldState.GetBalance(address);
                     if (accountChange.Balance.Value != originalBalance)
