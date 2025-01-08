@@ -60,26 +60,32 @@ public class RbuilderRpcModule(IBlockFinder blockFinder, ISpecProvider specProvi
                 if (accountChange.Nonce.IsPositive())
                 {
                     UInt256 originalNonce = worldState.GetNonce(address);
-                    if (accountChange.Nonce.Value > originalNonce)
+                    if (accountChange.Nonce.Value != originalNonce)
                     {
-                        worldState.IncrementNonce(address, accountChange.Nonce.Value - originalNonce);
-                    }
-                    else
-                    {
-                        worldState.DecrementNonce(address, originalNonce - accountChange.Nonce.Value);
+                        if (accountChange.Nonce.Value > originalNonce)
+                        {
+                            worldState.IncrementNonce(address, accountChange.Nonce.Value - originalNonce);
+                        }
+                        else
+                        {
+                            worldState.DecrementNonce(address, originalNonce - accountChange.Nonce.Value);
+                        }
                     }
                 }
 
                 if (accountChange.Balance.IsPositive())
                 {
                     UInt256 originalBalance = worldState.GetBalance(address);
-                    if (accountChange.Balance.Value > originalBalance)
+                    if (accountChange.Balance.Value != originalBalance)
                     {
-                        worldState.AddToBalance(address, accountChange.Balance.Value - originalBalance, releaseSpec);
-                    }
-                    else
-                    {
-                        worldState.SubtractFromBalance(address, originalBalance - accountChange.Balance.Value, releaseSpec);
+                        if (accountChange.Balance.Value > originalBalance)
+                        {
+                            worldState.AddToBalance(address, accountChange.Balance.Value - originalBalance, releaseSpec);
+                        }
+                        else
+                        {
+                            worldState.SubtractFromBalance(address, originalBalance - accountChange.Balance.Value, releaseSpec);
+                        }
                     }
                 }
 
