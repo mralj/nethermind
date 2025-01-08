@@ -44,10 +44,10 @@ public class RbuilderRpcModule(IBlockFinder blockFinder, ISpecProvider specProvi
                 if (accountChange.SelfDestructed)
                 {
                     worldState.DeleteAccount(address);
-                    // if (accountChange.Balance is not null
-                    //     || accountChange.Nonce is not null
-                    //     || accountChange.Code is not null
-                    //     || accountChange.ChangedSlots?.Count > 0) worldState.CreateAccountIfNotExists(address, 0, 0);
+                    if (accountChange.Balance is not null
+                        || accountChange.Nonce is not null
+                        || accountChange.Code is not null
+                        || accountChange.ChangedSlots?.Count > 0) worldState.CreateAccountIfNotExists(address, 0, 0);
                 }
                 else
                 {
