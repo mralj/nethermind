@@ -32,4 +32,5 @@ public class AccountChange
     public byte[]? Code { get; set; }
     public bool SelfDestructed { get; set; }
     public IDictionary<Hash256, Hash256>? ChangedSlots { get; set; }
+    public Hash256? CodeHash { get; set; }
 }

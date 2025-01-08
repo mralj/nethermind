@@ -88,7 +88,7 @@ public class RbuilderRpcModule(IBlockFinder blockFinder, ISpecProvider specProvi
                     }
                 }
 
-                if (accountChange.Code is not null)
+                if (accountChange.Code is not null && worldState.GetCodeHash(address) != accountChange.CodeHash)
                 {
                     worldState.InsertCode(address, accountChange.Code, releaseSpec);
                 }
