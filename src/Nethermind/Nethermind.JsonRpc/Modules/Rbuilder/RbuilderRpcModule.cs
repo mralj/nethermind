@@ -49,6 +49,10 @@ public class RbuilderRpcModule(IBlockFinder blockFinder, ISpecProvider specProvi
                         || accountChange.Code is not null
                         || accountChange.ChangedSlots?.Count > 0) worldState.CreateAccountIfNotExists(address, 0, 0);
                 }
+                else
+                {
+                    worldState.CreateAccountIfNotExists(address, 0,0 );
+                }
 
                 // IWorldState does not actually have set nonce or set balance.
                 // Set, its either this or changing `IWorldState` which is somewhat risky.
